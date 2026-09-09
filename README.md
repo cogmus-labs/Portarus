@@ -1,71 +1,147 @@
-# Índice de `docs/`
+<div align="center">
 
-> Reorganizado 2026-08-17: la raíz tenía 32 archivos sueltos. Ahora tiene 3 + este índice,
-> y todo lo demás está clasificado por carpeta.
->
-> **Si estás arrancando una sesión, no empieces aquí** — empieza por
-> [`../GETONTRACK.md`](../GETONTRACK.md).
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="public/img/portarus-banner-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="public/img/portarus-banner-light.png">
+  <img alt="Portarus" src="public/img/portarus-banner-dark.png" width="100%">
+</picture>
 
-## Los tres vivos (raíz)
+### The signal layer between your message source and your AI agent.
 
-| Archivo | Qué es |
+[![Build](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](#)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#)
+[![Tests](https://img.shields.io/badge/tests-1363_passing-brightgreen?style=flat-square)](#)
+[![License](https://img.shields.io/badge/license-proprietary-blue?style=flat-square)](#)
+
+</div>
+
+---
+
+## The problem
+
+Your AI agent receives messages straight from the source — WhatsApp, Telegram, Slack, whatever. And whatever gets sent, your agent has to deal with it:
+
+- **Sliced messages** — "hi" / "I have a question" / "about pricing" as three separate calls
+- **Duplicated messages** — the same thing, twice or more
+- **Bot spam** — noise that eats your token budget
+- **Token bombs** — oversized payloads that blow up your LLM costs
+
+Your agent processes all of it. Pays for all of it.
+
+## The fix
+
+**Portarus sits in front of your agent** to simplify, protect, unify, and route. Every filter, threshold, and behavior is fully customizable per gateway — you control what gets through and how.
+
+You get:
+
+- **A simplified workflow** — one URL replaces your webhook, everything else stays the same
+- **A fully protected agent** — rate limiting, deduplication, and token budgets block the noise before it reaches you
+- **Unified messages** — rapid-fire messages from the same user are batched into one payload, giving your AI better context
+- **Routing, blacklists, and more** — send messages to different endpoints by keyword, block specific users, and review everything that was filtered
+
+Replace one webhook URL. No SDK, no code changes, no deploy.
+
+---
+
+## Get started
+
+**1.** Create an account at [portarus.com](https://portarus.com)
+
+**2.** Create a gateway — pick your source channel, your destination platform, and enter your agent's endpoint URL
+
+**3.** Copy the Gateway URL: `gateway.portarus.com/g/{slug}`
+
+**4.** Replace the webhook URL in your message source with the Gateway URL. That's it.
+
+Your agent now receives filtered, deduplicated, unified messages — each one with a full audit envelope attached.
+
+---
+
+## What your agent receives
+
+Every message your agent gets includes the original payload plus a `_portarus` envelope with the full processing result.
+
+<table>
+<tr>
+<th>Before — raw payload</th>
+<th>After — with Portarus</th>
+</tr>
+<tr>
+<td>
+
+```json
+{
+  "user_id": "user_823",
+  "message": "I need help with billing",
+  "timestamp": "2026-09-08T14:30:00Z"
+}
+```
+
+</td>
+<td>
+
+```json
+{
+  "user_id": "user_823",
+  "message": "I need help with billing",
+  "timestamp": "2026-09-08T14:30:00Z",
+  "_portarus": {
+      "user": "user-id",
+      "message_unified": "First-message, Second-message, Third-message"
+      "status": { "processed": true },
+      "security": { 
+            "response": Pass|Harm, 
+            "reason": "token-bomb | rate-limit | duplication" 
+            },
+      "keyword_routing": { "matched": false },
+      "latency_ms": 47,
+      ...
+  }
+}
+```
+
+</td>
+</tr>
+</table>
+
+Your agent parses `_portarus` to know exactly what happened — was it processed? which status? was it routed? how long did it take? Every decision is traceable.
+
+---
+
+## Docs
+
+Full documentation at [portarus.com/docs](https://portarus.com/docs).
+
+| I want to... | Go to |
 |---|---|
-| [`portarus_info.md`](portarus_info.md) | ⭐ **El documento maestro.** Qué es Portarus, marca, capacidades, scope de lanzamiento, arquitectura, pipeline de deploy, convenciones. Punto de entrada de todo. |
-| [`PENDING.md`](PENDING.md) | **La lista de trabajo viva.** Launch blockers y prioridades. El trabajo por defecto del proyecto es avanzar esta lista. |
-| [`main_business.md`](main_business.md) | Documento maestro de negocio: posicionamiento, el problema, las 6 capacidades en detalle, envelope de entrega, precios, ICP. |
+| Set up my first gateway | [Quick Start](https://portarus.com/docs#quickstart) |
+| Configure rate limits, dedup, or token budget | [Filters](https://portarus.com/docs#filters) |
+| Batch rapid-fire messages into one | [Message Unification](https://portarus.com/docs#unification) |
+| Route messages by keyword | [Keyword Routing](https://portarus.com/docs#routing) |
+| Share a gateway with my team | [Sharing](https://portarus.com/docs#sharing) |
+| Understand my traffic metrics | [Insights](https://portarus.com/docs#insights) |
+| Debug a blocked or missing message | [Troubleshooting](https://portarus.com/docs#troubleshooting) |
+| Read the full delivery envelope spec | [Envelope Reference](https://portarus.com/docs#envelope) |
 
-## Carpetas
+---
 
-### [`cro/`](cro/) — conversión y landing
-El grupo más grande. Dividido en dos, porque son cosas distintas:
+## Stats
 
-- **[`cro/home/`](cro/home/)** — trabajo concreto sobre el home de Portarus. Contiene una
-  cadena histórica que conviene leer en orden: `HOME_STRATEGY.md` (plan) →
-  `HOME_CONVERSION_LADDER_SPEC.md` (spec detallado) → `HOME_CRO_AUDIT.md` (auditoría del
-  spec contra evidencia) → `HOME_CRO_REMEDIATION.md` (arreglos con criticidad P0/P1/P2).
-  Más `ACTIVATION_SPEC.md` (onboarding y time-to-value, el hermano del spec del home),
-  `LANDING_AUDIT_HOMEPROP.md`, `LANDING_STORYTELLING_REVIEW.md`,
-  `solution-visuals-proposal.md` y `new_html_estilos.md`.
-- **[`cro/research/`](cro/research/)** — investigación reutilizable, **no** específica de
-  Portarus. Esto se consulta, no se archiva: `section-audit-checklist.md` (checklist de 62
-  criterios para auditar cualquier sección de landing), `landing-page-strategies.md`
-  (estudios de conversión) y `headline-research-clarity-vs-persuasion.md`.
+| | |
+|---|---|
+| **Response time** | `202 Accepted` in <100ms at the edge |
+| **Global edge** | Cloudflare Workers — 300+ cities worldwide |
+| **Test suite** | 1,363 tests passing (unit + security + integration + performance) |
+| **Fail-open** | Your agent always receives its messages — infrastructure failures never block delivery |
+| **Encryption** | AES-256-GCM at rest, HMAC-signed gateway URLs, SSRF protection on all outbound calls |
+| **Delivery** | Async with retry — your message source gets `202` immediately, your agent gets the payload in the background |
 
-### [`business/`](business/) — negocio y marca
-`main_business.md` vive en la raíz por ser fuente de verdad; aquí está el resto:
-`MERCADEO_FINAL.md` (informe CMO de crecimiento), `PRODUCT_NAMING.md` (la investigación de
-naming, **ya cerrada** — el nombre es Portarus), y los docs de contexto y GTM de Cogmus.
+---
 
-### [`paper/`](paper/) — el paper del DPN
-`PAPER_DPN_ESTRATEGIA.md` (estrategia de publicación), `PAPER_DPN_REVIEW_INTRO_v1.md`
-(review hostil estilo NeurIPS de la intro) y el borrador
-`Now_Perception_Is_All_You_Need.pdf`.
+<div align="center">
 
-### [`architecture/`](architecture/) — arquitectura técnica
-Arquitectura del worker, flujo de request, payloads y notificaciones de respuesta, refactors
-del envelope y del dashboard.
+[portarus.com](https://portarus.com) · [Docs](https://portarus.com/docs) · [hello@cogmus.com](mailto:hello@cogmus.com)
 
-### [`worker/`](worker/) — QA del worker
-`QA_GAP_ANALYSIS.md` (fuente de verdad de los GAPs), `QA_TEST_MATRIX.md`,
-`QA_RELEASE_PROCESS.md`, `AUDIT_STATUS.md`. El handoff para retomar el QA está en
-[`../WORKER_QA_HANDOFF.md`](../WORKER_QA_HANDOFF.md).
+© 2026 Cogmus. All rights reserved.
 
-### [`core/`](core/) — referencia técnica
-`ENV_AND_SECRETS.md` (estructura de todos los `.env` + Account ID de Cloudflare),
-`TECH_STACK.md`, `DESIGN_GUIDELINES.md`, `CODING_knowledge.md`, `MIGRATION_GUIDE.md`.
-
-### [`audits/`](audits/) — auditorías
-`auditoria-seguridad.md` (seguridad, ronda 6, mayo 2026 — sin vulnerabilidades activas),
-más las auditorías de production-readiness y del worker de abril.
-
-### [`ideas/`](ideas/) — sin cocinar
-Notas y borradores sin pulir. No son decisiones.
-
-### [`dpn/`](dpn/) — documentación del DPN
-
-### [`archive/`](archive/) — 🗄️ histórico, no accionable
-`CHANGELOG.md` (congelado — **no se actualiza nunca**), el plan y el handoff de la
-remediación de auditoría **abandonada** (se hará una nueva), y productos retirados.
-No retomes trabajo desde aquí.
-
-### `.olds/` — restos anteriores, sin clasificar
+</div>
