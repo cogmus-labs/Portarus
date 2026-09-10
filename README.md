@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="Portarus — the signal layer between your message source and your AI agent" src="public/images/portarus_banner_git.png" width="100%">
+![Portarus](img/img.png)
 
 ### The signal layer between your message source and your AI agent.
 
