@@ -42,11 +42,11 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 <td valign="top">
 
 ```
-{                                                  
-  "user_id":    "user_823",                        
-  "message":    "I need help with billing",        
-  "timestamp":  "2026-09-08T14:30:00.000Z"         
-}                                                  
+{                                        
+  "user_id":    "user_823",               
+  "message":    "I need help with billing",
+  "timestamp":  "2026-09-08T14:30:00.000Z"
+}                                        
 ```
 
 
@@ -54,24 +54,24 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 <td valign="top">
 
 ```diff
- {                                                  
-   "user_id":    "user_823",                        
-   "message":    "I need help with billing",        
-   "timestamp":  "2026-09-08T14:30:00.000Z",        
-+  "_portarus": {                                   
-+      "user":            "user_823",               
-+      "message_unified": "...",                    
-+      "status":          { "processed": true },    
-+      "security": {                                
-+          "result":     "pass",                    
-+          "rate_limit": "pass",                    
-+          "dedup":      "pass",                    
-+          "max_tokens": "pass"                     
-+      },                                           
-+      "keyword_routing": { "matched": false },     
-+      "latency_ms": 47                             
-+  }                                                
- }                                                  
+ {                                        
+   "user_id":    "user_823",               
+   "message":    "I need help with billing",
+   "timestamp":  "2026-09-08T14:30:00.000Z",
++  "_portarus": {                           
++      "user":            "user_823",   
++      "message_unified": "...",          
++      "status":          { "processed": true },
++      "security": {                      
++          "result":     "pass",     
++          "rate_limit": "pass",         
++          "dedup":      "pass",       
++          "max_tokens": "pass"         
++      },                                 
++      "keyword_routing": { "matched": false },
++      "latency_ms": 47                
++  }                                   
+ }                                          
 ```
 
 </td>
