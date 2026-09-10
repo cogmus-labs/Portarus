@@ -1,9 +1,6 @@
 <div align="center">
 
-<!-- Replace with your actual banner. Recommended: 1280px wide, ~4:1 aspect, PNG. -->
-<!-- Delete this comment block and uncomment the picture block below when banners are ready. -->
-
-# Portarus
+<img alt="Portarus — the signal layer between your message source and your AI agent" src="public/images/portarus_banner_git.png" width="100%">
 
 ### The signal layer between your message source and your AI agent.
 
@@ -11,14 +8,6 @@
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#)
 [![Tests](https://img.shields.io/badge/tests-1363_passing-brightgreen?style=flat-square)](#)
 [![License](https://img.shields.io/badge/license-proprietary-blue?style=flat-square)](#)
-
-<!--
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="public/img/portarus-banner-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="public/img/portarus-banner-light.png">
-  <img alt="Portarus" src="public/img/portarus-banner-dark.png" width="100%">
-</picture>
--->
 
 </div>
 
@@ -54,9 +43,9 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 
 ```
 {                                                  
-  "user_id":    "user_823",
-  "message":    "I need help with billing",
-  "timestamp":  "2026-09-08T14:30:00.000Z"
+  "user_id":    "user_823",                        
+  "message":    "I need help with billing",        
+  "timestamp":  "2026-09-08T14:30:00.000Z"         
 }                                                  
 ```
 
@@ -65,24 +54,24 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 <td valign="top">
 
 ```diff
- {                                           
-   "user_id":    "user_823",                
-   "message":    "I need help with billing",  
-   "timestamp":  "2026-09-08T14:30:00.000Z", 
-+  "_portarus": {                                 
-+      "user":            "user_823",          
-+      "message_unified": "...",              
-+      "status":          { "processed": true },
-+      "security": {                          
-+          "result":     "pass",             
-+          "rate_limit": "pass",            
-+          "dedup":      "pass",            
-+          "max_tokens": "pass"              
-+      },                                  
-+      "keyword_routing": { "matched": false },
-+      "latency_ms": 47                     
-+  }                                       
- }                                           
+ {                                                  
+   "user_id":    "user_823",                        
+   "message":    "I need help with billing",        
+   "timestamp":  "2026-09-08T14:30:00.000Z",        
++  "_portarus": {                                   
++      "user":            "user_823",               
++      "message_unified": "...",                    
++      "status":          { "processed": true },    
++      "security": {                                
++          "result":     "pass",                    
++          "rate_limit": "pass",                    
++          "dedup":      "pass",                    
++          "max_tokens": "pass"                     
++      },                                           
++      "keyword_routing": { "matched": false },     
++      "latency_ms": 47                             
++  }                                                
+ }                                                  
 ```
 
 </td>
