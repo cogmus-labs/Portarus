@@ -42,11 +42,11 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 <td valign="top">
 
 ```
-{                                        
+{                                                  
   "user_id":    "user_823",               
   "message":    "I need help with billing",
   "timestamp":  "2026-09-08T14:30:00.000Z"
-}                                        
+}                                                  
 ```
 
 
@@ -54,7 +54,7 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 <td valign="top">
 
 ```diff
- {                                        
+ {                                                  
    "user_id":    "user_823",               
    "message":    "I need help with billing",
    "timestamp":  "2026-09-08T14:30:00.000Z",
@@ -71,7 +71,7 @@ Every delivered message includes the original payload **plus** a `_portarus` env
 +      "keyword_routing": { "matched": false },
 +      "latency_ms": 47                
 +  }                                   
- }                                          
+ }                                                  
 ```
 
 </td>
@@ -86,6 +86,10 @@ Your agent parses `_portarus` to know *exactly* what happened — was it process
 
 ### The problem
 
+![Without Portarus — raw payloads hit your agent directly](img/before.png)
+
+*The raw stream lands straight on your agent. Junk in, junk out — and your agent (and your bill) absorbs every bit of it.*
+
 Your AI agent receives messages **straight from the source** — WhatsApp, Telegram, Slack, whatever. No filter, no shield. Whatever gets sent, your agent *has to deal with it*:
 
 | | What happens | What it costs you |
@@ -95,11 +99,14 @@ Your AI agent receives messages **straight from the source** — WhatsApp, Teleg
 | **Bot spam** | Automated noise, crawlers, junk | Burned tokens on garbage |
 | **Token bombs** | Oversized payloads (pasted docs, base64 blobs) | Blown context windows, high costs |
 
-Your agent processes **all of it**. Pays for **all of it**.
+
+
 
 ### The fix
 
-**Portarus sits in front of your agent** — one gateway that *simplifies, protects, unifies, and routes*.
+![With Portarus — clean payloads delivered to your agent](img/after.png)
+
+**Portarus sits in front of your agent** — *unifying, protecting, and routing every message. Your agent only ever sees a clean, ready-to-use payload.*
 
 Everything is **fully customizable** per gateway. You set the thresholds. You pick the behavior. You control what gets through.
 
@@ -110,6 +117,7 @@ Everything is **fully customizable** per gateway. You set the thresholds. You pi
 | **Unified messages** | Rapid-fire messages batched into *one payload* — **better context** for your AI |
 | **Smart routing** | Route by keyword to different endpoints, **blacklist** abusive users, review everything filtered |
 | **Full audit trail** | Every message carries a `_portarus` envelope — your agent *knows* what happened |
+
 
 > Replace **one** webhook URL. *No SDK, no code changes, no deploy.*
 
