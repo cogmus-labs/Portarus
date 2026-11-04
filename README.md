@@ -1,6 +1,6 @@
 <div align="center">
 
-![Portarus](img/img.png)
+![Portarus](img/hero.svg)
 
 ### The signal layer between your message source and your AI agent.
 
@@ -96,7 +96,7 @@ Your agent parses `_portarus` to know *exactly* what happened — was it process
 
 ### The problem
 
-![Without Portarus — raw payloads hit your agent directly](img/before.png)
+![Without Portarus — raw payloads hit your agent directly](img/before.svg)
 
 *The raw stream lands straight on your agent. Junk in, junk out — and your agent (and your bill) absorbs every bit of it.*
 
@@ -114,7 +114,7 @@ Your AI agent receives messages **straight from the source** — WhatsApp, Teleg
 
 ### The fix
 
-![With Portarus — clean payloads delivered to your agent](img/after.png)
+![With Portarus — clean payloads delivered to your agent](img/after.svg)
 
 **Portarus sits in front of your agent** — *unifying, protecting, and routing every message. Your agent only ever sees a clean, ready-to-use payload.*
 
