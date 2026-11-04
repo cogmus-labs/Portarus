@@ -127,8 +127,8 @@ The secret is **omitted** from `--json` unless you pass `--show-secret`.
 
 <div align="center">
 
-[**portarus.com**](https://portarus.com) · [**Docs**](https://portarus.com/docs) · [hello@cogmus.com](mailto:hello@cogmus.com)
+[**portarus.com**](https://portarus.com) · [**Docs**](https://portarus.com/docs) · [hello@portarus.com](mailto:hello@portarus.com)
 
-© 2026 Cogmus. All rights reserved.
+© 2026 Portarus. All rights reserved.
 
 </div>

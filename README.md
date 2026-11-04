@@ -24,7 +24,7 @@ npx portarus
 It signs you in (browser), asks for your **source** and **destination**, and prints your **Gateway URL + secret**. Done.
 
 ```bash
-npx portarus whatsapp n8n https://you-n8n-webhook   # zero prompts
+npx portarus whatsapp n8n https://your-n8n.app/webhook/your-id   # zero prompts — your n8n webhook URL
 ```
 
 Full CLI reference → [**CLI.md**](CLI.md).
